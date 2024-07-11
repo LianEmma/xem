@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="player.css">
+    <link rel="stylesheet" href="song.css">
+    <link rel="stylesheet" href="songDeatils.css">
+    <title>SnapMug</title>
+</head>
+<body>
+    
+
+
+
+
+
+<!-- songs section -->
+<section class="SSections">
+
+    <div class="song-section-header">
+        <div class="logo">
+            <img src="assets/snapmug-logo.jpg" alt="">
+        </div>
+
+        <div class="left-side">
+           <i class="fas fa-dollar" id="dollar"></i>
+           <i class="fas fa-user"></i>
+        </div>
+    </div>
+
+    <div class="songs">
+        <h2>songs</h2>
+    </div>
+</section>
+<!-- songs section -->
+
+
+
+<section class="songDetailsPage hidden">
+
+   <div class="details">
+
+    <div class="trackDetails-header">
+        <button id="exittrackD"><i class="fas fa-arrow-left"></i></button>
+        <h2>track Details</h2>
+        <p></p>
+    </div>
+
+    <div class="topper-TrackDetails">
+        <div class="details-img">
+            <img src="assets/snapmug-logo.jpg" alt="">
+    
+            <div class="track-controls">
+                <button class="TPlaybtn"><i class="fas fa-play"></i></button>
+                <button class="Tpausebtn" id="Tpausebtn"><i class="fas fa-play"></i></button>
+             </div>
+        </div>
+    
+        <div class="track-songTs">
+            <p class="TSongT">song title</p>
+            <p class="TArtist">song Artist</p>
+        </div>
+
+        <div class="Track-seekbar">
+            <p class="track-intialTime">00:0</p>
+            <input type="range">
+            <p class="track-Time">00:0</p>
+        </div>   
+    </div>
+
+
+    <div class="footer-TrackDetails">
+        <div class="Track-DetailsActual">
+            <div class="Track-desc">
+
+                <div class="writer">
+                    <p>writer's Name</p>
+                    <span>oshume</span>
+                </div>
+
+                <div class="producer">
+                   <p> producer's Name</p>
+                   <span>pop Beats</span>
+                </div>
+
+                <div class="RecordLabel">
+                  <p>  Record label</p>
+                  <span>pop records</span>
+                </div>
+
+                <div class="writer">
+                    <p>Year of production</p>
+                    <span>2023</span>
+                </div>
+            </div>
+
+             <div class="UseTrackLinks">
+
+                <div class="Insta">
+                    <p>1UGX</p>
+                    <a href="#" class="fab fa-instagram">icon</a>
+                    <span>Instagram</span>
+                </div>
+
+                
+                <div class="fb">
+                    <p>0.7UGX</p>
+                    <a href="#" class="fab fa-facebook">icon</a>
+                    <span>fb</span>
+                </div>
+
+                <div class="youtube">
+                    <p>0.5UGX</p>
+                    <a href="#" class="fab fa-youtube">icon</a>
+                    <span>youtube</span>
+                </div>
+
+                <div class="tiktok">
+                    <p>3UGX</p>
+                    <a href="#" class="fab fa-tiktok">icon</a>
+                    <span>tiktok</span>
+                </div>
+
+
+             </div>
+
+
+        </div>
+    </div>
+  
+
+
+
+
+   </div>
+</section>
+
+
+
+
+     <section class="music-player-section">
+
+        <div class="music-player">
+            <div class="music-player-actual">
+
+                <div class="music-player-header">
+                   <button id="backbtn"> <i class="fas fa-arrow-left"></i></button>
+                    <div class="player-logo">
+                        <img src="assets/snapmug-logo.jpg" style="width: 100px; height:50px" alt="">
+                    </div>
+                    <p></p>
+                </div>
+
+                <div class="player-middle">
+                    <img src="Ranie Wasswa.jpg" alt="">
+                </div>
+
+                <div class="player-song-details">
+                    <p class="player-song-title">song title</p>
+                    <p class="player-song-artist">song artist</p>
+                </div>
+
+                <div class="seek-bar-container">
+                    <div class="seek-bar">
+                        <input type="range">
+
+                        <div class="time">
+                            <p class="intial-time">00:00</p>
+                            <p class="end-time">00:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="player-controls">
+              
+                    <i class="fas fa-repeat" id="repeat"></i>
+                    <i class="fas fa-chevron-left" id="prev"></i>
+                    <i class="fas fa-pause" id="pause"></i>
+                    <i class="fas fa-play" id="play"></i>
+                    <i class="fas fa-chevron-right" id="next"></i>
+                    <i class="fas fa-shuffle" id="shuffle"></i>
+                </div>
+
+            </div>
+        </div>
+
+     </section>
+
+
+
+     <script type="module">
+        
+
+        
+const firebaseConfig = {
+    apiKey: "AIzaSyDrUqSPnN2w7CFJJOOsHmeyPab22ykt4lQ",
+    authDomain: "snapmug-f4f4a.firebaseapp.com",
+    projectId: "snapmug-f4f4a",
+    storageBucket: "snapmug-f4f4a.appspot.com",
+    messagingSenderId: "577794734304",
+    appId: "1:577794734304:web:f2019ff77c43a66c3cb885"
+  };
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getFirestore, collection, addDoc,getDocs,query,orderBy} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+        import {  getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
+
+        // Your Firebase configuration
+        // const firebaseConfig = { /* Your config here */ };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore();
+        const storage = getStorage();
+
+        console.log(db)
+
+
+
+
+/////////////player show and hide//////
+let clickCount = 0;
+let bckBtn = document.getElementById("backbtn");
+let MusicPlayerContainer = document.querySelector(".music-player-section");
+let SongSection = document.querySelector(".SSections");
+let MusicPlayer = document.querySelector(".music-player-actual");
+
+
+// Function to handle click on the back button
+let handleBackButtonClick=()=> {
+    MusicPlayerContainer.classList.remove("active");
+    console.log("removed");
+}
+
+// Function to handle click on the music player
+function handleMusicPlayerClick(event) {
+    if (clickCount > 0) {
+        clickCount = 0
+        MusicPlayerContainer.classList.add("active");
+        SongSection.classList.add("hidden")
+        console.log("music player fully open");
+        return
+    }
+
+    clickCount ++
+    // Prevent the click event from bubbling up to the document level
+    event.stopPropagation();
+}
+
+bckBtn.addEventListener("click", ()=>{
+    MusicPlayerContainer.classList.remove("active");
+    SongSection.classList.remove("hidden")
+ })
+
+// Event listener for the back button
+// bckBtn.addEventListener("click", handleBackButtonClick,console.log("clicked"));
+
+// Event listener for the music player
+MusicPlayer.addEventListener("click", handleMusicPlayerClick);
+
+//////////////////handle Details page////////////////
+
+let exittrackD = document.querySelector("#exittrackD");
+let DetailsBtn = document.querySelector("#song-details");
+let songDetailsPage = document.querySelector(".songDetailsPage");
+
+
+// function OpenSongDetails(uploadTimestamp) {
+//     // Here you can use the unique identifier to fetch the song details from your database
+//     console.log("Open song details for song with upload timestamp:", uploadTimestamp);
+//     // You can implement the logic to fetch and display song details here
+//     songDetailsPage.classList.remove("hidden");
+//     SongSection.classList.add("hidden");
+// }
+// Function to open song details
+function openSongDetails(uploadTimestamp) {
+
+    let q = query(collection(db,"songs"));
+
+
+
+   onSnapshot((q),(snapshot)=>{
+    let songDrtails = [];
+
+    snapshot.forEach((doc)=>{
+        songDrtails.push({...doc.data(), id: doc.id});
+    });
+
+
+    console.log("Open song details for song with upload timestamp:", songDrtails);
+   })
+
+    songDetailsPage.classList.remove("hidden");
+    SongSection.classList.add("hidden");
+
+}
+
+exittrackD.addEventListener("click",()=>{
+    songDetailsPage.classList.add("hidden");
+    SongSection.classList.remove("hidden");
+    console.log("clicked");
+})
+
+
+
+
+
+
+
+
+
+async function retrieveDataFromFirestore() {
+    try {
+        console.log("Before getDocs");
+        const querySnapshot = await getDocs(query(collection(db, "songs"), orderBy("uploadTimestamp")));
+        console.log("After getDocs");
+
+        SongSection.innerHTML = "";
+
+        querySnapshot.forEach((doc) => {
+            const songData = doc.data();
+            
+            let songTag = `
+    <div class="song">
+        <div class="right">
+            <div class="img">
+                <img src="${songData.coverPhotoUrl}" alt="">
+            </div>
+            <div class="song-details">
+                <p class="sTilte">${songData.songName}</p>
+                <p class="sArtist">${songData.artistName}</p>
+            </div>
+        </div>
+        <div class="left">
+            <i class="fas fa-fire" id="hot"></i>
+            <button class="song-details-btn" onclick="openSongDetails('${songData.uploadTimestamp}')"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
+    </div>`;
+
+             
+             SongSection.insertAdjacentHTML("afterend",songTag);
+            ;
+
+        });
+    } catch (error) {
+        console.error("Error retrieving data:", error);
+        console.log("Query Snapshot:", querySnapshot)
+    }
+}
+
+retrieveDataFromFirestore();
+
+
+
+
+     </script>
+     <script src="assets/fontawesome-free-6.4.2-web/js/all.js"></script>
+</body>
+</html>
